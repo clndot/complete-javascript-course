@@ -6,8 +6,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+
 }
+
+#dice-1 { top: 100px; }
+#dice-2 { top: 250px; }
 
 .clearfix::after {
     content: "";
