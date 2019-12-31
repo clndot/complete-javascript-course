@@ -31,7 +31,7 @@ console.log(john.lastName);
 console.log(jane.lastName);
 console.log(mark.lastName);
 
-// Object.create method
+Object.create method
 
 var personProto = {
     calculateAge: function() {
@@ -49,3 +49,44 @@ var jane = Object.create(personProto, {
     birthYear: {value: 1990},
     job: {value: 'designer'}
 });
+
+
+// Primitives vs objects
+
+// Primitives
+var a = 89;
+var b = a;
+a = 42;
+
+console.log(a);
+console.log(b);
+
+// Objects
+var obj1 = {
+    name: 'John',
+    age: 29
+};
+
+var obj2 = obj1;
+obj1.age = 30;
+
+// No copy was created, just references in. memory
+console.log(obj1.age);
+console.log(obj2.age);
+
+// Functions
+var age = 31;
+var obj = {
+    name: 'Jon',
+    city: 'Winterfell'
+};
+
+function change(a, b){
+    a = 30;
+    b.city = 'King\'s Landing'
+};
+
+change(age, obj);
+console.log(age);
+console.log(obj.city);
+
