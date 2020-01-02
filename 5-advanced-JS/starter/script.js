@@ -347,5 +347,72 @@ c) correct answer (I would use a number for this)
 11. Display the score in the console. Use yet another method for this.
 */
 
+(function() {
+    var Question = function(question, answers, correctAnswer) {
+        this.question = question;
+        this.answers = answers;
+        this.correctAnswer = correctAnswer;
+    };
+
+    q1 = new Question('What is the capital city of New York?', ['Albany', 'New York City', 'Buffalo', 'Rochester'], 0);
+    q2 = new Question('What is the capital city of Vermont?', ['Montpelier', 'Burlington', 'Middlebury', 'Brattleboro'], 0);
+    q3 = new Question('What is the capital city of Texas?', ['Houston', 'Dallas', 'Austin', 'Arlington'], 2);
+    q4 = new Question('What is the capital city of Nevada?', ['Las Vegas', 'Reno', 'Boulder City', 'Carson City'], 3);
+
+
+    Question.prototype.checkAnswer = function(answer, cb){
+        var score;
+        var isCorrect = this.correctAnswer == answer;
+        if(isCorrect) {
+            console.log('That\'s the correct answer');
+            score = cb(true);
+        } else {
+            console.log('Sorry, wrong answer');
+            score = cb(false);
+        }
+        this.showScore(score);
+    };
+
+    questions = [q1, q2, q3];
+
+    Question.prototype.showQuestion = function(){
+        console.log(this.question);
+        for (var i = 0; i < this.answers.length; i++) {
+            console.log(this.answers[i]);
+        }
+    }
+
+    Question.prototype.showScore = function(score){
+        console.log('/////////////////////');
+        console.log('// Score: ' + score);
+    }
+
+    function storeScore(){
+        var score = 0;
+        return function(correct) {
+            if(correct) {
+                score++;
+            }
+            return score;
+        }
+    }
+
+    var storedScore = storeScore();
+
+    function nextQuestion(){
+        var a = Math.floor(Math.random() * questions.length);
+        questions[a].showQuestion();
+        var answer = prompt('Please select the correct answer.');
+
+        if(answer !== 'exit') {
+            var roundScore = questions[a].checkAnswer(parseInt(answer), storedScore);
+            nextQuestion();
+        }
+    }
+
+    nextQuestion();
+
+})();
+
 
 
